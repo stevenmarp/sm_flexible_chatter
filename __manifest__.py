@@ -29,7 +29,7 @@ Go to Settings → Users → Preferences → Chatter Position
     'version': '18.0.1.0.0',
     'author': "Steven Marpaung",
     'maintainers': ['Stevenmarp'],
-    'website': "",
+    'website': "https://github.com/Stevenmarp/snk_flexible_chatter",
     'license': 'LGPL-3',
     'category': 'Extra Tools',
     'depends': ['web', 'mail'],
