@@ -1,0 +1,83 @@
+/*
+    Copyright 2025 Sinerka
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+*/
+
+// Message pin button styling
+.snk-message-pin-btn {
+    padding: 4px 6px !important;
+    margin-left: 2px;
+    cursor: pointer;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05) !important;
+        opacity: 1;
+    }
+
+    i {
+        color: #6c757d;
+        font-size: 14px;
+        transition: color 0.2s ease;
+    }
+
+    &:hover i {
+        color: #495057;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    // Pinned state
+    &.snk-pinned {
+        opacity: 1;
+        background-color: rgba(13, 110, 253, 0.1) !important;
+
+        &:hover {
+            background-color: rgba(13, 110, 253, 0.2) !important;
+        }
+
+        i {
+            color: #0d6efd;
+        }
+
+        &:hover i {
+            color: #0b5ed7;
+        }
+    }
+}
+
+// Pinned message styling - make it sticky in sided chatter
+.o-mail-Form-chatter.o-aside {
+    .o-mail-Message.snk-message-pinned {
+        position: sticky !important;
+        top: 0;
+        z-index: 100;
+        background: #fff;
+        border: 1px solid #0d6efd;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 8px rgba(13, 110, 253, 0.15);
+
+        // Add visual indicator
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #0d6efd 0%, #0b5ed7 100%);
+            border-radius: 8px 0 0 8px;
+        }
+    }
+}
