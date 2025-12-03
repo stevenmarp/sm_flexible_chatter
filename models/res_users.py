@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ResUsers(models.Model):
@@ -13,7 +13,12 @@ class ResUsers(models.Model):
         ],
         default="auto",
         string="Chatter Position",
+        required=True,
     )
+    
+    def _get_chatter_position(self):
+        """Get chatter position with fallback to default"""
+        return getattr(self, 'chatter_position', 'auto') or 'auto'
 
     @property
     def SELF_READABLE_FIELDS(self):

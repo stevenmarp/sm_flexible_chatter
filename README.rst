@@ -74,7 +74,7 @@ Real-time Tracking Updates
 Installation
 ============
 
-1. Copy the ``snk_flexible_chatter`` folder to your Odoo addons directory
+1. Copy the ``sm_flexible_chatter`` folder to your Odoo addons directory
 2. Update the addons list in Odoo
 3. Install the module from Apps menu
 
@@ -128,7 +128,7 @@ Setting Chatter Position
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Go to **Settings → Technical → Parameters → System Parameters**
-2. Find or create parameter: ``snk.chatter.position``
+2. Find or create parameter: ``sm.chatter.position``
 3. Set value to: ``auto``, ``sided``, or ``bottom``
 4. Refresh the page
 
@@ -200,9 +200,9 @@ Browser Storage
 
 The module uses ``localStorage`` to persist:
 
-* Chatter width preference (``snk_chatter_width``)
-* Pinned message states (``snk_pinned_msg_{messageId}``)
-* Fullscreen mode state (``snk_chatter_fullscreen``)
+* Chatter width preference (``sm_chatter_width``)
+* Pinned message states (``sm_pinned_msg_{messageId}``)
+* Fullscreen mode state (``sm_chatter_fullscreen``)
 
 Browser Requirements
 ~~~~~~~~~~~~~~~~~~~~
@@ -242,7 +242,7 @@ Changelog
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/sinerka/odoo-modules/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/stevenmarp/odoo-modules/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed feedback.
 
@@ -252,26 +252,26 @@ Credits
 Authors
 ~~~~~~~
 
-* Sinerka
+* Stevenmarp
 
 Contributors
 ~~~~~~~~~~~~
 
-* Sinerka Development Team
+* Stevenmarp Development Team
 
 Maintainers
 ~~~~~~~~~~~
 
-This module is maintained by **Sinerka**.
+This module is maintained by **Stevenmarp**.
 
-.. image:: https://www.sinerka.id/logo.png
-   :alt: Sinerka
-   :target: https://www.sinerka.id
+.. image:: https://apps.odoo.com/apps/icon_image/512936
+   :alt: Stevenmarp
+   :target: https://apps.odoo.com/apps/browse?repo_maintainer_id=512936
 
 For support and more information, please visit:
 
-* Website: https://www.sinerka.id/
-* Email: support@sinerka.id
+* Website: https://apps.odoo.com/apps/browse?repo_maintainer_id=512936
+* Email: stevenoctavianusmarpaung@gmail.com
 
 License
 ~~~~~~~

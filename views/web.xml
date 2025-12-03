@@ -3,8 +3,8 @@
     <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
         <t t-set="head_web" position="inside">
             <script type="text/javascript">
-                odoo.snk_flexible_chatter = "<t
-                t-out="request.env.user.chatter_position"
+                odoo.sm_flexible_chatter = "<t
+                t-out="request.env.user._get_chatter_position()"
             />";
             </script>
         </t>

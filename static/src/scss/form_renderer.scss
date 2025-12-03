@@ -1,5 +1,5 @@
 /*
-    Copyright 2025 Sinerka
+    Copyright 2025 Stevenmarp
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 */
 
@@ -15,7 +15,7 @@
 }
 
 // Resize handle styles
-.snk-chatter-resize-handle {
+.sm-chatter-resize-handle {
     position: absolute;
     left: 0;
     top: 0;
@@ -52,7 +52,7 @@
 }
 
 // Hide/Show Chatter Toggle Button
-.snk-chatter-toggle {
+.sm-chatter-toggle {
     position: fixed;
     right: 440px;
     top: 50%;
@@ -88,7 +88,7 @@
 }
 
 // Hidden chatter state (fullscreen)
-.o-mail-Form-chatter.o-aside.snk-chatter-hidden {
+.o-mail-Form-chatter.o-aside.sm-chatter-hidden {
     width: 0 !important;
     min-width: 0 !important;
     max-width: 0 !important;
@@ -96,7 +96,7 @@
     padding: 0;
     border-left: none;
 
-    .snk-chatter-toggle {
+    .sm-chatter-toggle {
         right: 0;
         border-radius: 0 8px 8px 0;
         box-shadow: 2px 0 8px rgba(0,0,0,0.2);
@@ -107,13 +107,13 @@
         }
     }
 
-    .snk-chatter-resize-handle {
+    .sm-chatter-resize-handle {
         display: none;
     }
 }
 
 // Fullscreen form when chatter is hidden
-.o_form_sheet_bg.snk-fullscreen-form {
+.o_form_sheet_bg.sm-fullscreen-form {
     max-width: 100% !important;
     
     .o_form_sheet {
@@ -122,7 +122,7 @@
 }
 
 // Message pin button styles - positioned absolute on message
-.snk-message-pin-btn {
+.sm-message-pin-btn {
     position: absolute !important;
     top: 8px;
     right: 8px;
@@ -170,7 +170,7 @@
     }
 
     // Pinned state
-    &.snk-pinned {
+    &.sm-pinned {
         opacity: 1;
         background-color: #0d6efd !important;
         border-color: #0d6efd !important;
@@ -191,7 +191,7 @@
 }
 
 // Pinned message styles
-.o-mail-Message.snk-message-pinned {
+.o-mail-Message.sm-message-pinned {
     position: relative;
     background-color: rgba(13, 110, 253, 0.08) !important;
     border-left: 3px solid #0d6efd;
@@ -220,19 +220,19 @@
 
 // Show pin button on hover, always show if pinned
 .o-mail-Form-chatter.o-aside .o-mail-Message {
-    .snk-message-pin-btn {
+    .sm-message-pin-btn {
         opacity: 0;
     }
     
-    &:hover .snk-message-pin-btn {
+    &:hover .sm-message-pin-btn {
         opacity: 0.8;
     }
     
-    &:hover .snk-message-pin-btn:hover {
+    &:hover .sm-message-pin-btn:hover {
         opacity: 1;
     }
     
-    .snk-message-pin-btn.snk-pinned {
+    .sm-message-pin-btn.sm-pinned {
         opacity: 1;
     }
 }

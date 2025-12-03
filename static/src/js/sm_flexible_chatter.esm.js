@@ -1,5 +1,5 @@
 /*
-    Copyright 2025 Sinerka
+    Copyright 2025 Stevenmarp
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 */
 
@@ -13,7 +13,7 @@ import {FormController} from "@web/views/form/form_controller";
 // Show notification
 function showNotification(message, type = 'info') {
     const toast = document.createElement('div');
-    toast.className = 'snk-toast-notification';
+    toast.className = 'sm-toast-notification';
     toast.textContent = message;
     toast.style.cssText = `
         position: fixed;
@@ -85,7 +85,7 @@ function reorderMessages(container) {
     
     messages.forEach(msg => {
         const msgId = getMessageId(msg);
-        const isPinned = msg.classList.contains('snk-message-pinned');
+        const isPinned = msg.classList.contains('sm-message-pinned');
         
         if (isPinned) {
             pinned.push({ el: msg, id: msgId });
@@ -126,20 +126,20 @@ function reorderMessages(container) {
 // Add pin button to a message
 function addPinButton(messageEl, container) {
     // Skip if already has button
-    if (messageEl.querySelector('.snk-message-pin-btn')) return;
+    if (messageEl.querySelector('.sm-message-pin-btn')) return;
     
     const msgId = getMessageId(messageEl);
-    const isPinned = localStorage.getItem(`snk_pinned_msg_${msgId}`) === 'true';
+    const isPinned = localStorage.getItem(`sm_pinned_msg_${msgId}`) === 'true';
     
     // Apply pinned class if stored
     if (isPinned) {
-        messageEl.classList.add('snk-message-pinned');
+        messageEl.classList.add('sm-message-pinned');
     }
     
     // Create button
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'snk-message-pin-btn' + (isPinned ? ' snk-pinned' : '');
+    btn.className = 'sm-message-pin-btn' + (isPinned ? ' sm-pinned' : '');
     btn.title = isPinned ? 'Unpin' : 'Pin';
     btn.innerHTML = `<i class="fa fa-thumb-tack${isPinned ? '' : ' fa-rotate-90'}"></i>`;
     
@@ -148,16 +148,16 @@ function addPinButton(messageEl, container) {
         e.preventDefault();
         e.stopPropagation();
         
-        const nowPinned = messageEl.classList.toggle('snk-message-pinned');
-        btn.classList.toggle('snk-pinned', nowPinned);
+        const nowPinned = messageEl.classList.toggle('sm-message-pinned');
+        btn.classList.toggle('sm-pinned', nowPinned);
         btn.innerHTML = `<i class="fa fa-thumb-tack${nowPinned ? '' : ' fa-rotate-90'}"></i>`;
         btn.title = nowPinned ? 'Unpin' : 'Pin';
         
         if (nowPinned) {
-            localStorage.setItem(`snk_pinned_msg_${msgId}`, 'true');
+            localStorage.setItem(`sm_pinned_msg_${msgId}`, 'true');
             showNotification('Message Pinned!');
         } else {
-            localStorage.removeItem(`snk_pinned_msg_${msgId}`);
+            localStorage.removeItem(`sm_pinned_msg_${msgId}`);
             showNotification('Message Unpinned!');
         }
         
@@ -223,31 +223,31 @@ function setupMessageObserver(container) {
 
 // Initialize all chatter features
 function initChatterFeatures() {
-    if (odoo.snk_flexible_chatter !== 'sided') return;
+    if (odoo.sm_flexible_chatter !== 'sided') return;
     
     setTimeout(() => {
         const containers = document.querySelectorAll('.o-mail-Form-chatter.o-aside');
         
         containers.forEach(container => {
             // Add hide/show toggle button
-            if (!container.querySelector('.snk-chatter-toggle')) {
+            if (!container.querySelector('.sm-chatter-toggle')) {
                 const toggleBtn = document.createElement('button');
-                toggleBtn.className = 'snk-chatter-toggle';
+                toggleBtn.className = 'sm-chatter-toggle';
                 toggleBtn.type = 'button';
                 toggleBtn.title = 'Hide Chatter (Fullscreen)';
                 toggleBtn.innerHTML = '<i class="fa fa-chevron-right"></i>';
                 
                 toggleBtn.onclick = () => {
-                    const isHidden = container.classList.toggle('snk-chatter-hidden');
+                    const isHidden = container.classList.toggle('sm-chatter-hidden');
                     const formView = container.closest('.o_form_view');
                     const formSheet = formView?.querySelector('.o_form_sheet_bg');
                     
                     // Toggle fullscreen on form
                     if (formSheet) {
                         if (isHidden) {
-                            formSheet.classList.add('snk-fullscreen-form');
+                            formSheet.classList.add('sm-fullscreen-form');
                         } else {
-                            formSheet.classList.remove('snk-fullscreen-form');
+                            formSheet.classList.remove('sm-fullscreen-form');
                         }
                     }
                     
@@ -258,7 +258,7 @@ function initChatterFeatures() {
                     toggleBtn.title = isHidden ? 'Show Chatter' : 'Hide Chatter (Fullscreen)';
                     
                     // Save state globally for all form views
-                    localStorage.setItem('snk_chatter_fullscreen', isHidden ? 'true' : 'false');
+                    localStorage.setItem('sm_chatter_fullscreen', isHidden ? 'true' : 'false');
                     
                     // Show notification
                     showNotification(isHidden ? 'Fullscreen Mode Enabled' : 'Chatter Visible');
@@ -267,9 +267,9 @@ function initChatterFeatures() {
                 container.appendChild(toggleBtn);
                 
                 // Restore saved state
-                const isFullscreen = localStorage.getItem('snk_chatter_fullscreen') === 'true';
+                const isFullscreen = localStorage.getItem('sm_chatter_fullscreen') === 'true';
                 if (isFullscreen) {
-                    container.classList.add('snk-chatter-hidden');
+                    container.classList.add('sm-chatter-hidden');
                     toggleBtn.innerHTML = '<i class="fa fa-chevron-left"></i>';
                     toggleBtn.title = 'Show Chatter';
                     
@@ -277,20 +277,20 @@ function initChatterFeatures() {
                     const formView = container.closest('.o_form_view');
                     const formSheet = formView?.querySelector('.o_form_sheet_bg');
                     if (formSheet) {
-                        formSheet.classList.add('snk-fullscreen-form');
+                        formSheet.classList.add('sm-fullscreen-form');
                     }
                 }
             }
             
             // Setup resize handle
-            if (!container.querySelector('.snk-chatter-resize-handle')) {
+            if (!container.querySelector('.sm-chatter-resize-handle')) {
                 const handle = document.createElement('div');
-                handle.className = 'snk-chatter-resize-handle';
+                handle.className = 'sm-chatter-resize-handle';
                 handle.innerHTML = '<i class="fa fa-ellipsis-v"></i>';
                 container.insertBefore(handle, container.firstChild);
                 
                 // Load saved width
-                const savedWidth = localStorage.getItem('snk_chatter_width');
+                const savedWidth = localStorage.getItem('sm_chatter_width');
                 if (savedWidth) {
                     container.style.width = savedWidth + 'px';
                     container.style.minWidth = savedWidth + 'px';
@@ -322,7 +322,7 @@ function initChatterFeatures() {
                         isResizing = false;
                         document.body.style.cursor = '';
                         document.body.style.userSelect = '';
-                        localStorage.setItem('snk_chatter_width', container.offsetWidth);
+                        localStorage.setItem('sm_chatter_width', container.offsetWidth);
                     }
                 });
             }
@@ -370,11 +370,11 @@ patch(FormCompiler.prototype, {
         }
 
         // Don't patch anything if the setting is "auto": this is the core behaviour
-        if (odoo.snk_flexible_chatter === "auto") {
+        if (odoo.sm_flexible_chatter === "auto") {
             return res;
             // For "sided", we have to remote the bottom chatter
             // (except if there is an attachment viewer, as we have to force bottom)
-        } else if (odoo.snk_flexible_chatter === "sided") {
+        } else if (odoo.sm_flexible_chatter === "sided") {
             setAttributes(chatterContainerXml, {
                 isInFormSheetBg: `__comp__.uiService.size < ${SIZES.XXL}`,
                 isChatterAside: `__comp__.uiService.size >= ${SIZES.XXL}`,
@@ -385,7 +385,7 @@ patch(FormCompiler.prototype, {
             // For "bottom", we keep the chatter in the form sheet
             // (the one used for the attachment viewer case)
             // If it's not there, we create it.
-        } else if (odoo.snk_flexible_chatter === "bottom") {
+        } else if (odoo.sm_flexible_chatter === "bottom") {
             // Force full width form view if chatter is set to bottom manually
             formSheetBgXml.classList.add("o_fullwidth");
             if (webClientViewAttachmentViewHookXml) {
@@ -405,7 +405,7 @@ patch(FormCompiler.prototype, {
                 setAttributes(sheetBgChatterContainerHookXml, {
                     "t-if": "true",
                     "t-attf-class": `{{ (__comp__.uiService.size >= ${SIZES.XXL} && ${
-                        odoo.snk_flexible_chatter !== "bottom"
+                        odoo.sm_flexible_chatter !== "bottom"
                     }) ? "o-aside" : "mt-4 mt-md-0" }}`,
                 });
                 append(formSheetBgXml, sheetBgChatterContainerHookXml);
@@ -427,7 +427,7 @@ patch(FormCompiler.prototype, {
     compileForm(el, params) {
         const form = super.compileForm(el, params);
         const sheet = form.querySelector(".o_form_sheet_bg");
-        if (sheet && odoo.snk_flexible_chatter === "sided") {
+        if (sheet && odoo.sm_flexible_chatter === "sided") {
             setAttributes(form, {
                 "t-attf-class": "",
                 class: "d-flex d-print-block flex-nowrap h-100",

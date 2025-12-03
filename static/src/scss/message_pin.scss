@@ -1,10 +1,10 @@
 /*
-    Copyright 2025 Sinerka
+    Copyright 2025 Stevenmarp
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 */
 
 // Message pin button styling
-.snk-message-pin-btn {
+.sm-message-pin-btn {
     padding: 4px 6px !important;
     margin-left: 2px;
     cursor: pointer;
@@ -38,7 +38,7 @@
     }
 
     // Pinned state
-    &.snk-pinned {
+    &.sm-pinned {
         opacity: 1;
         background-color: rgba(13, 110, 253, 0.1) !important;
 
@@ -58,7 +58,7 @@
 
 // Pinned message styling - make it sticky in sided chatter
 .o-mail-Form-chatter.o-aside {
-    .o-mail-Message.snk-message-pinned {
+    .o-mail-Message.sm-message-pinned {
         position: sticky !important;
         top: 0;
         z-index: 100;
