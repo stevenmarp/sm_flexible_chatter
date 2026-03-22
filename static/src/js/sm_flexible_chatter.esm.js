@@ -221,10 +221,19 @@ function setupMessageObserver(container) {
     });
 }
 
-// Initialize all chatter features
-function initChatterFeatures() {
-    if (odoo.sm_flexible_chatter !== 'sided') return;
-    
+// Initialize pin feature for all chatter modes
+function initPinFeatures() {
+    setTimeout(() => {
+        const containers = document.querySelectorAll('.o-mail-Form-chatter, .o-mail-Form-chatter.o-isInFormSheetBg');
+        containers.forEach(container => {
+            processMessages(container);
+            setupMessageObserver(container);
+        });
+    }, 300);
+}
+
+// Initialize sided-only features (toggle, resize)
+function initSidedFeatures() {
     setTimeout(() => {
         const containers = document.querySelectorAll('.o-mail-Form-chatter.o-aside');
         
@@ -327,11 +336,19 @@ function initChatterFeatures() {
                 });
             }
             
-            // Process messages and setup observer
+            // Process messages and setup observer for sided containers too
             processMessages(container);
             setupMessageObserver(container);
         });
     }, 200);
+}
+
+// Main init: pin for all modes, toggle/resize for sided only
+function initChatterFeatures() {
+    initPinFeatures();
+    if (odoo.sm_flexible_chatter === 'sided') {
+        initSidedFeatures();
+    }
 }
 
 // Patch FormController

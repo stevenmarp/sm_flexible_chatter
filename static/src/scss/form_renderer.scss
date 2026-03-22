@@ -11,6 +11,7 @@
     &.o-aside {
         position: relative;
         transition: width 0.1s ease;
+        border-left: 1px solid #dee2e6;
     }
 }
 
@@ -53,32 +54,34 @@
 
 // Hide/Show Chatter Toggle Button
 .sm-chatter-toggle {
-    position: fixed;
-    right: 440px;
+    position: absolute;
+    left: -18px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1000;
-    width: 36px;
-    height: 80px;
+    width: 18px;
+    height: 60px;
     background: linear-gradient(135deg, #714B67 0%, #875A7B 100%);
     border: none;
-    border-radius: 8px 0 0 8px;
+    border-radius: 6px 0 0 6px;
     color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+    box-shadow: -2px 0 6px rgba(0,0,0,0.15);
     transition: all 0.3s ease;
+    padding: 0;
 
     &:hover {
-        transform: translateY(-50%) translateX(-3px);
+        width: 22px;
+        left: -22px;
         background: linear-gradient(135deg, #875A7B 0%, #714B67 100%);
-        box-shadow: -3px 0 12px rgba(0,0,0,0.3);
+        box-shadow: -3px 0 10px rgba(0,0,0,0.25);
     }
 
     i {
-        font-size: 18px;
+        font-size: 12px;
         transition: transform 0.3s ease;
     }
 
@@ -97,13 +100,11 @@
     border-left: none;
 
     .sm-chatter-toggle {
-        right: 0;
-        border-radius: 0 8px 8px 0;
-        box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+        left: -18px;
+        border-radius: 6px 0 0 6px;
 
         &:hover {
-            transform: translateY(-50%) translateX(3px);
-            box-shadow: 3px 0 12px rgba(0,0,0,0.3);
+            left: -22px;
         }
     }
 
@@ -218,8 +219,9 @@
     position: relative !important;
 }
 
-// Show pin button on hover, always show if pinned
-.o-mail-Form-chatter.o-aside .o-mail-Message {
+// Show pin button on hover, always show if pinned (all chatter modes)
+.o-mail-Form-chatter .o-mail-Message,
+.o-mail-Form-chatter.o-isInFormSheetBg .o-mail-Message {
     .sm-message-pin-btn {
         opacity: 0;
     }
