@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//script[1]" position="before">
+            <script type="text/javascript">
+                odoo.sm_flexible_chatter = "<t t-out="request.env.user._get_chatter_position()"/>";
+            </script>
+        </xpath>
+    </template>
+</odoo>
