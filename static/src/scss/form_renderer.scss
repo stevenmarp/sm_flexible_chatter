@@ -17,12 +17,19 @@
 }
 
 // Sided layout for legacy form views
-.o_form_view.sm-chatter-sided {
+body[data-chatter-position="sided"] .o_form_view.sm-chatter-sided {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     height: 100% !important;
     align-items: stretch !important;
+    width: 100% !important;
+
+    .o_form_view_container {
+        flex: 1 1 auto !important;
+        width: auto !important;
+        min-width: 0 !important;
+    }
 
     .o_form_sheet_bg {
         flex: 1 1 auto !important;
