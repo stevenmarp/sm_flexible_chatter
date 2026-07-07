@@ -80,33 +80,35 @@
 
 // Hide/Show Chatter Toggle Button
 .sm-chatter-toggle {
-    position: fixed;
-    right: 440px;
+    position: absolute;
+    left: -14px; /* Float exactly on the left border */
     top: 50%;
     transform: translateY(-50%);
     z-index: 1000;
-    width: 36px;
-    height: 80px;
+    width: 28px;
+    height: 60px;
     background: linear-gradient(135deg, #714B67 0%, #875A7B 100%);
-    border: none;
-    border-radius: 8px 0 0 8px;
+    border: 1px solid #dee2e6;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
     color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: -2px 0 8px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
+    box-shadow: -2px 0 6px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
 
     &:hover {
-        transform: translateY(-50%) translateX(-3px);
+        left: -16px;
+        width: 30px;
         background: linear-gradient(135deg, #875A7B 0%, #714B67 100%);
-        box-shadow: -3px 0 12px rgba(0,0,0,0.3);
+        box-shadow: -3px 0 8px rgba(0,0,0,0.25);
     }
 
     i {
-        font-size: 18px;
-        transition: transform 0.3s ease;
+        font-size: 14px;
+        transition: transform 0.2s ease;
     }
 
     &:active i {
@@ -124,22 +126,23 @@
     min-width: 0 !important;
     max-width: 0 !important;
     overflow: visible !important;
-    padding: 0;
-    border-left: none;
+    padding: 0 !important;
+    border-left: none !important;
 
     .sm-chatter-toggle {
-        right: 0;
-        border-radius: 0 8px 8px 0;
-        box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+        left: -28px; /* Position it flush against the screen right edge since container width is 0 */
+        border-radius: 6px 0 0 6px;
+        box-shadow: -2px 0 6px rgba(0,0,0,0.15);
 
         &:hover {
-            transform: translateY(-50%) translateX(3px);
-            box-shadow: 3px 0 12px rgba(0,0,0,0.3);
+            left: -30px;
+            width: 30px;
+            box-shadow: -3px 0 8px rgba(0,0,0,0.25);
         }
     }
 
     .sm-chatter-resize-handle {
-        display: none;
+        display: none !important;
     }
 }
 
