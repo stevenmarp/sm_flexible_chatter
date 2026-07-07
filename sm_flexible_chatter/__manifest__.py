@@ -47,6 +47,6 @@ Go to Settings → Users → Preferences → Chatter Position
     'installable': True,
     'application': False,
     'auto_install': False,
-    'price': 48.00,
+    'price': 29.22,
     'currency': 'USD',
 }
