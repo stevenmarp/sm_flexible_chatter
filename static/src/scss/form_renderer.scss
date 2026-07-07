@@ -3,14 +3,41 @@
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 */
 
-.o-mail-Form-chatter {
-    &:not(.o-aside):not(.o-full-width) .o-mail-Chatter {
-        max-width: $o-form-view-sheet-max-width;
+.o-mail-Form-chatter, .o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter {
+    &:not(.o-aside):not(.o-full-width) {
+        .o-mail-Chatter, .o_Chatter, .o_ChatterContainer {
+            max-width: 1200px;
+        }
     }
 
     &.o-aside {
         position: relative;
         transition: width 0.1s ease;
+    }
+}
+
+// Sided layout for legacy form views
+.o_form_view.sm-chatter-sided {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    height: 100% !important;
+    align-items: stretch !important;
+
+    .o_form_sheet_bg {
+        flex: 1 1 auto !important;
+        overflow-y: auto !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 0 !important;
+    }
+
+    .o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter {
+        height: 100% !important;
+        overflow-y: auto !important;
+        background: #ffffff;
+        border-left: 1px solid #dee2e6;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.02);
     }
 }
 
@@ -47,7 +74,7 @@
 }
 
 // Add padding to chatter content to avoid overlap with resize handle
-.o-mail-Form-chatter.o-aside .o-mail-Chatter {
+.o-mail-Form-chatter.o-aside, .o_FormRenderer_chatterContainer.o-aside, .o_ChatterContainer.o-aside, .o_chatter.o-aside, .oe_chatter.o-aside {
     padding-left: 12px;
 }
 
@@ -88,7 +115,11 @@
 }
 
 // Hidden chatter state (fullscreen)
-.o-mail-Form-chatter.o-aside.sm-chatter-hidden {
+.o-mail-Form-chatter.o-aside.sm-chatter-hidden,
+.o_FormRenderer_chatterContainer.o-aside.sm-chatter-hidden,
+.o_ChatterContainer.o-aside.sm-chatter-hidden,
+.o_chatter.o-aside.sm-chatter-hidden,
+.oe_chatter.o-aside.sm-chatter-hidden {
     width: 0 !important;
     min-width: 0 !important;
     max-width: 0 !important;
@@ -191,7 +222,7 @@
 }
 
 // Pinned message styles
-.o-mail-Message.sm-message-pinned {
+.o-mail-Message.sm-message-pinned, .o_Message.sm-message-pinned, .o_thread_message.sm-message-pinned {
     position: relative;
     background-color: rgba(13, 110, 253, 0.08) !important;
     border-left: 3px solid #0d6efd;
@@ -214,26 +245,28 @@
 }
 
 // Ensure messages have relative position
-.o-mail-Message {
+.o-mail-Message, .o_Message, .o_thread_message {
     position: relative !important;
 }
 
 // Show pin button on hover, always show if pinned
-.o-mail-Form-chatter.o-aside .o-mail-Message {
-    .sm-message-pin-btn {
-        opacity: 0;
-    }
-    
-    &:hover .sm-message-pin-btn {
-        opacity: 0.8;
-    }
-    
-    &:hover .sm-message-pin-btn:hover {
-        opacity: 1;
-    }
-    
-    .sm-message-pin-btn.sm-pinned {
-        opacity: 1;
+.o-mail-Form-chatter.o-aside, .o_FormRenderer_chatterContainer.o-aside, .o_ChatterContainer.o-aside, .o_chatter.o-aside, .oe_chatter.o-aside {
+    .o-mail-Message, .o_Message, .o_thread_message {
+        .sm-message-pin-btn {
+            opacity: 0;
+        }
+        
+        &:hover .sm-message-pin-btn {
+            opacity: 0.8;
+        }
+        
+        &:hover .sm-message-pin-btn:hover {
+            opacity: 1;
+        }
+        
+        .sm-message-pin-btn.sm-pinned {
+            opacity: 1;
+        }
     }
 }
 
