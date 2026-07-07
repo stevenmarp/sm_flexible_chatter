@@ -11,6 +11,10 @@ import {patch} from "@web/core/utils/patch";
 import {onMounted, onPatched} from "@odoo/owl";
 import {FormController} from "@web/views/form/form_controller";
 
+// Set chatter position dynamically from user session info
+odoo.sm_flexible_chatter = odoo.session_info?.chatter_position || 'sided';
+
+
 // Show notification
 function showNotification(message, type = 'info') {
     const toast = document.createElement('div');
