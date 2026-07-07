@@ -32,12 +32,24 @@
         margin-bottom: 0 !important;
     }
 
-    .o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter {
+    .o-mail-Form-chatter.o-aside, .o_FormRenderer_chatterContainer.o-aside, .o_ChatterContainer.o-aside, .o_chatter.o-aside, .oe_chatter.o-aside {
         height: 100% !important;
-        overflow-y: auto !important;
         background: #ffffff;
         border-left: 1px solid #dee2e6;
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.02);
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: visible !important;
+
+        .o_Chatter, .bg-view, .o_ChatterContainer, .o_chatter, .oe_chatter {
+            background-color: transparent !important;
+            background: transparent !important;
+            flex: 1 1 auto !important;
+            height: 100% !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
     }
 }
 
