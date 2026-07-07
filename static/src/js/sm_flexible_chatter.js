@@ -176,7 +176,11 @@ odoo.define('sm_flexible_chatter.session', function (require) {
             document.body.setAttribute('data-chatter-position', position);
         }
 
-        const chatterContainers = document.querySelectorAll('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
+        let chatterContainers = document.querySelectorAll('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
+        chatterContainers = Array.from(chatterContainers).filter(container => {
+            const parent = container.parentElement.closest('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
+            return !parent;
+        });
         chatterContainers.forEach(function(container) {
             const formView = container.closest('.o_form_view');
             if (!formView) return;
