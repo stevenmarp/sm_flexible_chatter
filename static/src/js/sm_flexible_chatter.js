@@ -3,15 +3,19 @@
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 */
 
-(function() {
+odoo.define('sm_flexible_chatter.core', function (require) {
     'use strict';
+    
+    const session = require('web.session');
+    const FormRenderer = require('web.FormRenderer');
     
     // Initialize session preference globally
     window.odoo = window.odoo || {};
+    window.odoo.sm_flexible_chatter = session.chatter_position || 'sided';
     
     function getChatterPosition() {
-        if (window.odoo && window.odoo.session_info && window.odoo.session_info.chatter_position) {
-            window.odoo.sm_flexible_chatter = window.odoo.session_info.chatter_position;
+        if (session && session.chatter_position) {
+            window.odoo.sm_flexible_chatter = session.chatter_position;
         }
         return window.odoo.sm_flexible_chatter || 'sided';
     }
@@ -24,6 +28,25 @@
         });
     }
 
+    // Patch legacy FormRenderer to prevent Odoo Enterprise from forcing the chatter to be aside on XXL screens
+    if (FormRenderer) {
+        FormRenderer.include({
+            init() {
+                this._super(...arguments);
+                const originalIsChatterAside = this._isChatterAside;
+                this._isChatterAside = function() {
+                    const position = getChatterPosition();
+                    if (position !== 'sided') {
+                        return false;
+                    }
+                    if (originalIsChatterAside) {
+                        return originalIsChatterAside.apply(this, arguments);
+                    }
+                    return false;
+                };
+            }
+        });
+    }
 
     // Show notification
     function showNotification(message, type = 'info') {
@@ -347,36 +370,4 @@
     } else {
         init();
     }
-})();
-
-// Patch legacy FormRenderer to prevent Odoo Enterprise from forcing the chatter to be aside on XXL screens
-if (window.odoo && typeof window.odoo.define === 'function') {
-    window.odoo.define('sm_flexible_chatter.FormRendererPatch', function (require) {
-        'use strict';
-        
-        try {
-            const FormRenderer = require('web.FormRenderer');
-            if (FormRenderer) {
-                FormRenderer.include({
-                    init() {
-                        this._super(...arguments);
-                        const originalIsChatterAside = this._isChatterAside;
-                        this._isChatterAside = function() {
-                            const position = (window.odoo && window.odoo.sm_flexible_chatter) || 'sided';
-                            if (position !== 'sided') {
-                                return false;
-                            }
-                            if (originalIsChatterAside) {
-                                return originalIsChatterAside.apply(this, arguments);
-                            }
-                            return false;
-                        };
-                    }
-                });
-            }
-        } catch (e) {
-            // Safe fallback
-        }
-    });
-}
-
+});
