@@ -3,13 +3,15 @@
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 */
 
+odoo.define('sm_flexible_chatter.session', function (require) {
+    'use strict';
+    const { session } = require('@web/session');
+    window.odoo = window.odoo || {};
+    window.odoo.sm_flexible_chatter = session.chatter_position || 'sided';
+});
+
 (function() {
     'use strict';
-
-    // Set chatter position dynamically from user session info
-    if (window.odoo && window.odoo.session_info) {
-        window.odoo.sm_flexible_chatter = window.odoo.session_info.chatter_position || 'sided';
-    }
 
     // Show notification
     function showNotification(message, type = 'info') {
