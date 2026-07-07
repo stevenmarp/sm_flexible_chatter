@@ -254,13 +254,11 @@ odoo.define('sm_flexible_chatter.session', function (require) {
                 handle.innerHTML = '<i class="fa fa-ellipsis-v"></i>';
                 container.insertBefore(handle, container.firstChild);
                 
-                // Load saved width
-                const savedWidth = localStorage.getItem('sm_chatter_width');
-                if (savedWidth) {
-                    container.style.width = savedWidth + 'px';
-                    container.style.minWidth = savedWidth + 'px';
-                    container.style.maxWidth = savedWidth + 'px';
-                }
+                // Load saved width or use a clean default (e.g., 380px)
+                const savedWidth = localStorage.getItem('sm_chatter_width') || '380';
+                container.style.width = savedWidth + 'px';
+                container.style.minWidth = savedWidth + 'px';
+                container.style.maxWidth = savedWidth + 'px';
                 
                 // Resize logic
                 let isResizing = false, startX = 0, startWidth = 0;

@@ -35,9 +35,20 @@
     .o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter {
         height: 100% !important;
         overflow-y: auto !important;
-        background: #ffffff;
-        border-left: 1px solid #dee2e6;
-        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.02);
+        background: #f8f9fa !important;
+        border-left: 1px solid #dee2e6 !important;
+        box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.02), -2px 0 5px rgba(0, 0, 0, 0.02) !important;
+
+        // Override bg-view to allow the light grey background to show through
+        .o_Chatter, .bg-view, .o_ChatterContainer {
+            background-color: transparent !important;
+            background: transparent !important;
+        }
+
+        // Add padding to the scroll panel
+        .o_Chatter_scrollPanel {
+            padding: 0 16px 16px 16px !important;
+        }
     }
 }
 
