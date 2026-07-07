@@ -10,9 +10,10 @@ import {SIZES} from "@web/core/ui/ui_service";
 import {patch} from "@web/core/utils/patch";
 import {onMounted, onPatched} from "@odoo/owl";
 import {FormController} from "@web/views/form/form_controller";
+import {session} from "@web/session";
 
 // Set chatter position dynamically from user session info
-odoo.sm_flexible_chatter = odoo.session_info?.chatter_position || 'sided';
+odoo.sm_flexible_chatter = session.chatter_position || 'sided';
 
 
 // Show notification
