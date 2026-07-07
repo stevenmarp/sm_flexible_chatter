@@ -321,10 +321,11 @@ body[data-chatter-position="sided"] .o_form_view.sm-chatter-sided {
     }
 }
 
-body[data-chatter-position="bottom"] {
+body[data-chatter-position="bottom"], body[data-chatter-position="auto"] {
     .o_form_view.o_xxl_form_view {
         flex-direction: column !important;
         flex-flow: column nowrap !important;
+        height: 100% !important;
 
         .o_form_view_container {
             width: 100% !important;
@@ -332,11 +333,16 @@ body[data-chatter-position="bottom"] {
             flex: 1 1 auto !important;
         }
 
-        .o_form_sheet_bg {
-            padding: 0 !important;
+        > .o_form_sheet_bg {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex: 1 1 auto !important;
+            overflow: auto !important;
             
             > .o_form_sheet {
-                margin: 0 auto !important;
+                margin: 24px auto !important;
+                width: 100% !important;
+                max-width: 1140px !important;
             }
         }
         
@@ -346,6 +352,13 @@ body[data-chatter-position="bottom"] {
             min-width: 100% !important;
             border-left: none !important;
             border-top: 1px solid #dee2e6 !important;
+            padding-left: 0 !important;
+            
+            .o-mail-Chatter, .o_Chatter, .o_ChatterContainer {
+                max-width: 1140px !important;
+                margin: 0 auto !important;
+                width: 100% !important;
+            }
         }
     }
 }
