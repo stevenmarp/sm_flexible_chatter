@@ -7,15 +7,20 @@
     'use strict';
     
     // Initialize session preference globally
-    const sessionPos = (window.odoo && window.odoo.session_info && window.odoo.session_info.chatter_position) || 'sided';
     window.odoo = window.odoo || {};
-    window.odoo.sm_flexible_chatter = sessionPos;
+    
+    function getChatterPosition() {
+        if (window.odoo && window.odoo.session_info && window.odoo.session_info.chatter_position) {
+            window.odoo.sm_flexible_chatter = window.odoo.session_info.chatter_position;
+        }
+        return window.odoo.sm_flexible_chatter || 'sided';
+    }
     
     if (document.body) {
-        document.body.setAttribute('data-chatter-position', sessionPos);
+        document.body.setAttribute('data-chatter-position', getChatterPosition());
     } else {
         document.addEventListener('DOMContentLoaded', function() {
-            document.body.setAttribute('data-chatter-position', sessionPos);
+            document.body.setAttribute('data-chatter-position', getChatterPosition());
         });
     }
 
@@ -170,7 +175,7 @@
     }
 
     function initChatterFeatures() {
-        const position = window.odoo && window.odoo.sm_flexible_chatter || 'auto';
+        const position = getChatterPosition();
         if (document.body) {
             document.body.setAttribute('data-chatter-position', position);
         }
