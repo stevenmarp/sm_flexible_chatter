@@ -295,3 +295,32 @@
         opacity: 0;
     }
 }
+
+body[data-chatter-position="bottom"] {
+    .o_form_view.o_xxl_form_view {
+        flex-direction: column !important;
+        flex-flow: column nowrap !important;
+
+        .o_form_view_container {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex: 1 1 auto !important;
+        }
+
+        .o_form_sheet_bg {
+            padding: 0 !important;
+            
+            > .o_form_sheet {
+                margin: 0 auto !important;
+            }
+        }
+        
+        .o-mail-Form-chatter, .o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 100% !important;
+            border-left: none !important;
+            border-top: 1px solid #dee2e6 !important;
+        }
+    }
+}
