@@ -343,3 +343,28 @@
         init();
     }
 })();
+
+// Patch legacy FormRenderer to prevent Odoo Enterprise from forcing the chatter to be aside on XXL screens
+if (window.odoo && typeof window.odoo.define === 'function') {
+    window.odoo.define('sm_flexible_chatter.FormRendererPatch', function (require) {
+        'use strict';
+        
+        try {
+            const FormRenderer = require('web.FormRenderer');
+            if (FormRenderer) {
+                FormRenderer.include({
+                    _isChatterAside() {
+                        const position = (window.odoo && window.odoo.sm_flexible_chatter) || 'sided';
+                        if (position !== 'sided') {
+                            return false;
+                        }
+                        return this._super(...arguments);
+                    }
+                });
+            }
+        } catch (e) {
+            // Safe fallback
+        }
+    });
+}
+
