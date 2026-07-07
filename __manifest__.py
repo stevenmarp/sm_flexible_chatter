@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Flexible Chatter",
-    'summary': """Flexible chatter position, resizable width, and message pinning for Odoo 15""",
+    'summary': """Flexible chatter position, resizable width, and message pinning for Odoo 14""",
     'description': """
-Flexible Chatter for Odoo 15
+Flexible Chatter for Odoo 14
 ============================
 
 A powerful module that enhances the chatter experience with:
@@ -26,7 +26,7 @@ A powerful module that enhances the chatter experience with:
 **User Configuration:**
 Go to Settings → Users → Preferences → Chatter Position
     """,
-    'version': '15.0.1.0.0',
+    'version': '14.0.1.0.0',
     'author': "Steven Marpaung",
     'maintainers': ['Stevenmarp'],
     'website': "https://apps.odoo.com/apps/browse?repo_maintainer_id=512936",
@@ -35,14 +35,9 @@ Go to Settings → Users → Preferences → Chatter Position
     'depends': ['web', 'mail'],
     'data': [
         'views/res_users.xml',
-        'views/web.xml'
+        'views/web.xml',
+        'views/assets.xml'
     ],
-    'assets': {
-        'web.assets_backend': [
-            'sm_flexible_chatter/static/src/js/*.js',
-            'sm_flexible_chatter/static/src/scss/*.scss',
-        ],
-    },
     'images': [
         'static/description/banner.png',
         'static/description/demo.gif',

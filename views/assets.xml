@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/sm_flexible_chatter/static/src/js/sm_flexible_chatter.js"/>
+            <link rel="stylesheet" type="text/scss" href="/sm_flexible_chatter/static/src/scss/form_renderer.scss"/>
+        </xpath>
+    </template>
+</odoo>
