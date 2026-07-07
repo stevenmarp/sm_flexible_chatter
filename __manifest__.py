@@ -35,7 +35,6 @@ Go to Settings → Users → Preferences → Chatter Position
     'depends': ['web', 'mail'],
     'data': [
         'views/res_users.xml',
-        'views/web.xml'
     ],
     'assets': {
         'web.assets_backend': [
