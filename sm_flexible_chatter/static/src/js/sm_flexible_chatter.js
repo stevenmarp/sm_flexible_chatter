@@ -3,12 +3,46 @@
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 */
 
-(function() {
+odoo.define('sm_flexible_chatter.core', function (require) {
     'use strict';
+    
+    const session = require('web.session');
+    const FormRenderer = require('web.FormRenderer');
+    
+    // Initialize session preference globally
+    window.odoo = window.odoo || {};
+    
+    function getChatterPosition() {
+        if (session && session.chatter_position) {
+            window.odoo.sm_flexible_chatter = session.chatter_position;
+        } else if (window.odoo && window.odoo.session_info && window.odoo.session_info.chatter_position) {
+            window.odoo.sm_flexible_chatter = window.odoo.session_info.chatter_position;
+        }
+        return window.odoo.sm_flexible_chatter || 'sided';
+    }
+    
+    if (document.body) {
+        document.body.setAttribute('data-chatter-position', getChatterPosition());
+    } else {
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.setAttribute('data-chatter-position', getChatterPosition());
+        });
+    }
 
-    // Set chatter position dynamically from user session info
-    if (window.odoo && window.odoo.session_info) {
-        window.odoo.sm_flexible_chatter = window.odoo.session_info.chatter_position || 'sided';
+    // Patch FormRenderer to prevent Odoo Enterprise from forcing the chatter to be aside on XXL screens
+    if (FormRenderer) {
+        FormRenderer.include({
+            init() {
+                this._super(...arguments);
+            },
+            _isChatterAside() {
+                const position = getChatterPosition();
+                if (position !== 'sided') {
+                    return false;
+                }
+                return this._super(...arguments);
+            }
+        });
     }
 
     // Show notification
@@ -161,14 +195,43 @@
     }
 
     function initChatterFeatures() {
-        const position = window.odoo && window.odoo.sm_flexible_chatter || 'auto';
-        if (position !== 'sided') return;
+        const position = getChatterPosition();
+        if (document.body) {
+            document.body.setAttribute('data-chatter-position', position);
+        }
 
-        const chatterContainers = document.querySelectorAll('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
+        let chatterContainers = document.querySelectorAll('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
+        chatterContainers = Array.from(chatterContainers).filter(container => {
+            const parent = container.parentElement.closest('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
+            return !parent;
+        });
         chatterContainers.forEach(function(container) {
             const formView = container.closest('.o_form_view');
             if (!formView) return;
             
+            // Do not apply sided layout inside modals/dialogs
+            const isModal = container.closest('.modal') || container.closest('.o_dialog') || container.closest('.modal-content');
+
+            if (position !== 'sided' || isModal) {
+                formView.classList.remove('sm-chatter-sided');
+                container.classList.remove('o-aside');
+                
+                // Move chatter inside form view container so it scrolls naturally
+                const viewContainer = formView.querySelector('.o_form_view_container') || formView.querySelector('.o_form_sheet_bg');
+                if (viewContainer && container.parentElement !== viewContainer) {
+                    viewContainer.appendChild(container);
+                }
+                
+                const toggle = container.querySelector('.sm-chatter-toggle');
+                if (toggle) toggle.remove();
+                const handle = container.querySelector('.sm-chatter-resize-handle');
+                if (handle) handle.remove();
+                container.style.width = '';
+                container.style.minWidth = '';
+                container.style.maxWidth = '';
+                return;
+            }
+
             formView.classList.add('sm-chatter-sided');
             container.classList.add('o-aside');
 
@@ -224,13 +287,11 @@
                 handle.innerHTML = '<i class="fa fa-ellipsis-v"></i>';
                 container.insertBefore(handle, container.firstChild);
                 
-                // Load saved width
-                const savedWidth = localStorage.getItem('sm_chatter_width');
-                if (savedWidth) {
-                    container.style.width = savedWidth + 'px';
-                    container.style.minWidth = savedWidth + 'px';
-                    container.style.maxWidth = savedWidth + 'px';
-                }
+                // Load saved width or use 380px default
+                const savedWidth = localStorage.getItem('sm_chatter_width') || '380';
+                container.style.width = savedWidth + 'px';
+                container.style.minWidth = savedWidth + 'px';
+                container.style.maxWidth = savedWidth + 'px';
                 
                 // Resize logic
                 let isResizing = false, startX = 0, startWidth = 0;
@@ -306,4 +367,4 @@
     } else {
         init();
     }
-})();
+});
