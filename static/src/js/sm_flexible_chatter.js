@@ -192,7 +192,7 @@
                 container.classList.remove('o-aside');
                 
                 // Move chatter inside form view container so it scrolls naturally
-                const viewContainer = formView.querySelector('.o_form_view_container');
+                const viewContainer = formView.querySelector('.o_form_view_container') || formView.querySelector('.o_form_sheet_bg');
                 if (viewContainer && container.parentElement !== viewContainer) {
                     viewContainer.appendChild(container);
                 }
