@@ -7,7 +7,15 @@ odoo.define('sm_flexible_chatter.session', function (require) {
     'use strict';
     const { session } = require('@web/session');
     window.odoo = window.odoo || {};
-    window.odoo.sm_flexible_chatter = session.chatter_position || 'sided';
+    const pos = session.chatter_position || 'sided';
+    window.odoo.sm_flexible_chatter = pos;
+    if (document.body) {
+        document.body.setAttribute('data-chatter-position', pos);
+    } else {
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.setAttribute('data-chatter-position', pos);
+        });
+    }
 });
 
 (function() {
@@ -164,7 +172,27 @@ odoo.define('sm_flexible_chatter.session', function (require) {
 
     function initChatterFeatures() {
         const position = window.odoo && window.odoo.sm_flexible_chatter || 'auto';
-        if (position !== 'sided') return;
+        if (document.body) {
+            document.body.setAttribute('data-chatter-position', position);
+        }
+        if (position !== 'sided') {
+            const chatterContainers = document.querySelectorAll('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
+            chatterContainers.forEach(function(container) {
+                const formView = container.closest('.o_form_view');
+                if (formView) {
+                    formView.classList.remove('sm-chatter-sided');
+                }
+                container.classList.remove('o-aside');
+                const toggle = container.querySelector('.sm-chatter-toggle');
+                if (toggle) toggle.remove();
+                const handle = container.querySelector('.sm-chatter-resize-handle');
+                if (handle) handle.remove();
+                container.style.width = '';
+                container.style.minWidth = '';
+                container.style.maxWidth = '';
+            });
+            return;
+        }
 
         const chatterContainers = document.querySelectorAll('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
         chatterContainers.forEach(function(container) {
