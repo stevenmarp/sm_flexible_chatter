@@ -175,13 +175,17 @@ odoo.define('sm_flexible_chatter.session', function (require) {
         if (document.body) {
             document.body.setAttribute('data-chatter-position', position);
         }
-        if (position !== 'sided') {
-            const chatterContainers = document.querySelectorAll('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
-            chatterContainers.forEach(function(container) {
-                const formView = container.closest('.o_form_view');
-                if (formView) {
-                    formView.classList.remove('sm-chatter-sided');
-                }
+
+        const chatterContainers = document.querySelectorAll('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
+        chatterContainers.forEach(function(container) {
+            const formView = container.closest('.o_form_view');
+            if (!formView) return;
+
+            // Do not apply sided layout inside modals/dialogs
+            const isModal = container.closest('.modal') || container.closest('.o_dialog') || container.closest('.modal-content');
+
+            if (position !== 'sided' || isModal) {
+                formView.classList.remove('sm-chatter-sided');
                 container.classList.remove('o-aside');
                 const toggle = container.querySelector('.sm-chatter-toggle');
                 if (toggle) toggle.remove();
@@ -190,15 +194,9 @@ odoo.define('sm_flexible_chatter.session', function (require) {
                 container.style.width = '';
                 container.style.minWidth = '';
                 container.style.maxWidth = '';
-            });
-            return;
-        }
+                return;
+            }
 
-        const chatterContainers = document.querySelectorAll('.o_FormRenderer_chatterContainer, .o_ChatterContainer, .o_chatter, .oe_chatter');
-        chatterContainers.forEach(function(container) {
-            const formView = container.closest('.o_form_view');
-            if (!formView) return;
-            
             formView.classList.add('sm-chatter-sided');
             container.classList.add('o-aside');
 
