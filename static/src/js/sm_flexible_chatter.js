@@ -3,23 +3,22 @@
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 */
 
-odoo.define('sm_flexible_chatter.session', function (require) {
-    'use strict';
-    const { session } = require('@web/session');
-    window.odoo = window.odoo || {};
-    const pos = session.chatter_position || 'sided';
-    window.odoo.sm_flexible_chatter = pos;
-    if (document.body) {
-        document.body.setAttribute('data-chatter-position', pos);
-    } else {
-        document.addEventListener('DOMContentLoaded', function() {
-            document.body.setAttribute('data-chatter-position', pos);
-        });
-    }
-});
-
 (function() {
     'use strict';
+    
+    // Initialize session preference globally
+    const sessionPos = (window.odoo && window.odoo.session_info && window.odoo.session_info.chatter_position) || 'sided';
+    window.odoo = window.odoo || {};
+    window.odoo.sm_flexible_chatter = sessionPos;
+    
+    if (document.body) {
+        document.body.setAttribute('data-chatter-position', sessionPos);
+    } else {
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.setAttribute('data-chatter-position', sessionPos);
+        });
+    }
+
 
     // Show notification
     function showNotification(message, type = 'info') {
@@ -191,6 +190,13 @@ odoo.define('sm_flexible_chatter.session', function (require) {
             if (position !== 'sided' || isModal) {
                 formView.classList.remove('sm-chatter-sided');
                 container.classList.remove('o-aside');
+                
+                // Move chatter inside form view container so it scrolls naturally
+                const viewContainer = formView.querySelector('.o_form_view_container');
+                if (viewContainer && container.parentElement !== viewContainer) {
+                    viewContainer.appendChild(container);
+                }
+                
                 const toggle = container.querySelector('.sm-chatter-toggle');
                 if (toggle) toggle.remove();
                 const handle = container.querySelector('.sm-chatter-resize-handle');
