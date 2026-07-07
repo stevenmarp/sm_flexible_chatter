@@ -358,12 +358,19 @@ if (window.odoo && typeof window.odoo.define === 'function') {
             const FormRenderer = require('web.FormRenderer');
             if (FormRenderer) {
                 FormRenderer.include({
-                    _isChatterAside() {
-                        const position = (window.odoo && window.odoo.sm_flexible_chatter) || 'sided';
-                        if (position !== 'sided') {
+                    init() {
+                        this._super(...arguments);
+                        const originalIsChatterAside = this._isChatterAside;
+                        this._isChatterAside = function() {
+                            const position = (window.odoo && window.odoo.sm_flexible_chatter) || 'sided';
+                            if (position !== 'sided') {
+                                return false;
+                            }
+                            if (originalIsChatterAside) {
+                                return originalIsChatterAside.apply(this, arguments);
+                            }
                             return false;
-                        }
-                        return this._super(...arguments);
+                        };
                     }
                 });
             }
