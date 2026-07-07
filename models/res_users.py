@@ -11,7 +11,7 @@ class ResUsers(models.Model):
             ("bottom", "Bottom"),
             ("sided", "Sided"),
         ],
-        default="auto",
+        default="sided",
         string="Chatter Position",
         required=True,
     )
