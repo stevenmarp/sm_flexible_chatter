@@ -56,8 +56,9 @@
     }
 }
 
-// Pinned message styling - make it sticky in sided chatter
-.o-mail-Form-chatter.o-aside {
+// Pinned message styling - works in all chatter modes
+.o-mail-Form-chatter,
+.o-mail-Form-chatter.o-isInFormSheetBg {
     .o-mail-Message.sm-message-pinned {
         position: sticky !important;
         top: 0;

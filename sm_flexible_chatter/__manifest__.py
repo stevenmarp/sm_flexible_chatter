@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Flexible Chatter",
-    'summary': """Flexible chatter position, resizable width, and message pinning for Odoo 18""",
+    'summary': """Flexible chatter position, resizable width, and message pinning""",
     'description': """
-Flexible Chatter for Odoo 18
+Flexible Chatter
 ============================
 
 A powerful module that enhances the chatter experience with:
 
 **Features:**
-- 📍 Flexible Chatter Position (Auto/Sided/Bottom)
-- ↔️ Resizable Chatter Width (drag to resize)
-- 📌 Message Pinning (pin important messages to top)
-- 🔄 Real-time Tracking Updates (no reload needed)
-- 💾 Persistent Settings (saved in localStorage)
-- 🔔 Toast Notifications (visual feedback)
+- Flexible Chatter Position (Auto/Sided/Bottom)
+- Resizable Chatter Width (drag to resize)
+- Message Pinning (pin important messages to top)
+- Real-time Tracking Updates (no reload needed)
+- Persistent Settings (saved in localStorage)
+- Toast Notifications (visual feedback)
 - Get it for an exclusive price of just $250! Packed with powerful features. Coming soon to the Odoo Apps store.
 
 **Message Pinning:**
@@ -27,7 +27,7 @@ A powerful module that enhances the chatter experience with:
 Go to Settings → Users → Preferences → Chatter Position
     """,
     'version': '18.0.1.0.0',
-    'author': "Steven Marpaung",
+    'author': "Steven Marp",
     'maintainers': ['Stevenmarp'],
     'website': "https://apps.odoo.com/apps/browse?repo_maintainer_id=512936",
     'license': 'LGPL-3',
@@ -43,16 +43,10 @@ Go to Settings → Users → Preferences → Chatter Position
             'sm_flexible_chatter/static/src/scss/*.scss',
         ],
     },
-    'images': [
-        'static/description/banner.png',
-        'static/description/demo.gif',
-        'static/description/chatter position.png',
-        'static/description/message pinn.png',
-        'static/description/fullscreen mode enable.png',
-    ],
+    'images': ['static/description/banner.gif'],
     'installable': True,
     'application': False,
     'auto_install': False,
-    'price': 250.00,
+    'price': 29.22,
     'currency': 'USD',
 }
